@@ -104,7 +104,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jogamp.joal</groupId>
-			<artifactId>joal</artifactId>
+			<artifactId>joal-main</artifactId>
 			<version>${jogamp.version}</version>
 		</dependency>
 	</dependencies>
