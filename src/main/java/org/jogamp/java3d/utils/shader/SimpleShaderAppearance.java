@@ -168,23 +168,17 @@ public class SimpleShaderAppearance extends ShaderAppearance {
 			"uniform int alphaTestFunction;\n" + //
 			"uniform float alphaTestValue;\n";
 
-	public static String alphaTestMethod = "if(alphaTestEnabled != 0)\n" + //
-			"{	\n" + //
-			" 	if(alphaTestFunction==516)//>\n" + //
-			"		if(baseMap.a<=alphaTestValue)discard;\n" + //
-			"	else if(alphaTestFunction==518)//>=\n" + //
-			"		if(baseMap.a<alphaTestValue)discard;\n" + //
-			"	else if(alphaTestFunction==514)//==\n" + //
-			"		if(baseMap.a!=alphaTestValue)discard;\n" + //
-			"	else if(alphaTestFunction==517)//!=\n" + //
-			"		if(baseMap.a==alphaTestValue)discard;\n" + //
-			"	else if(alphaTestFunction==513)//<\n" + //
-			"		if(baseMap.a>=alphaTestValue)discard;\n" + //
-			"	else if(alphaTestFunction==515)//<=\n" + //
-			"		if(baseMap.a>alphaTestValue)discard;\n" + //
-			"	else if(alphaTestFunction==512)//never	\n" + //
-			"		discard;	\n" + //
-			"}\n";
+	public static String alphaTestMethod = "	if(alphaTestEnabled != 0){\r\n"//
+			+ "		if(alphaTestFunction==512)discard;//never (never keep it)\r\n"//
+			+ "		if(alphaTestFunction==513 && !(baseMap.a< alphaTestValue))discard;\r\n"//
+			+ "		if(alphaTestFunction==514 && !(baseMap.a==alphaTestValue))discard;\r\n"//
+			+ "		if(alphaTestFunction==515 && !(baseMap.a<=alphaTestValue))discard;\r\n"//
+			+ "		if(alphaTestFunction==516 && !(baseMap.a> alphaTestValue))discard;\r\n"//
+			+ "		if(alphaTestFunction==517 && !(baseMap.a!=alphaTestValue))discard;\r\n"//
+			+ "		if(alphaTestFunction==518 && !(baseMap.a>=alphaTestValue))discard;\r\n"//
+			+ "		//alphaTestFunction==519//always (always keep it)\r\n"
+			+ "	}";//
+			
 
 	public static String glFrontMaterial = "struct material\n" + //
 			"	{\n" + //
