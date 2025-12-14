@@ -859,30 +859,18 @@ public class Viewer {
      * Exit if run as an application
      */
     void addWindowCloseListener(Window win) {
-	SecurityManager sm = System.getSecurityManager();
-	boolean doExit = true;
-
-	if (sm != null) {
-	    try {
-		sm.checkExit(0);
-	    } catch (SecurityException e) {
-		doExit = false;
-	    }
-	}
-	final boolean _doExit = doExit;
-
-	win.addWindowListener(new WindowAdapter() {
+    	win.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent winEvent) {
-		Window w = winEvent.getWindow();
-		w.setVisible(false);
-		try {
-		    w.dispose();
-		} catch (IllegalStateException e) {}
-		if (_doExit) {
-		    System.exit(0);
-		}
-	    }
-	});
+            	Window w = winEvent.getWindow();
+            	w.setVisible(false);
+            	try {
+            		w.dispose();
+            	} catch (IllegalStateException e) {}
+            	try {
+            		System.exit(0);
+            	} catch (SecurityException e) {}
+            }
+    	});
     }
 }

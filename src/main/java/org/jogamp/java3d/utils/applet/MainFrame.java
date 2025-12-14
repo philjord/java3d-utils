@@ -217,35 +217,25 @@ public class MainFrame extends Frame implements
 	/*
 	  Added WindowListener inner class to detect close events.
 	*/
-	SecurityManager sm = System.getSecurityManager();
-	boolean doExit = true;
-
-	if (sm != null) {
-	    try {
-		sm.checkExit(0);
-	    } catch (SecurityException e) {
-		doExit = false;
-	    }
-	}
-
-	final boolean _doExit = doExit;
 
 	addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent winEvent) {
-		if (MainFrame.this.applet != null) {
-		    MainFrame.this.applet.destroy();
-		}
-		Window w = winEvent.getWindow();
-		w.hide();
-		try {
-		    w.dispose();
-		} catch (IllegalStateException e) {}
+		@Override
+		public void windowClosing(WindowEvent winEvent) {
+			if (MainFrame.this.applet != null) {
+				MainFrame.this.applet.destroy();
+			}
+			Window w = winEvent.getWindow();
+			w.hide();
+			try {
+				w.dispose();
+			} catch (IllegalStateException e) {
+			}
 
-		if (_doExit) {
-		    System.exit(0);
+			try {
+				System.exit(0);
+			} catch (SecurityException e) {
+			}
 		}
-	    }
 	});
 
 	// Start a separate thread to call the applet's init() and start()
