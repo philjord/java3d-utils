@@ -8,6 +8,7 @@
 
 	<name>Java 3D Utils</name>
 	<description>Utility functions for the Java 3D Graphics API</description>
+	<url>https://jogamp.org</url>
 
 	<licenses>
 		<license>
